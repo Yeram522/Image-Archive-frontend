@@ -1,20 +1,353 @@
-h4[name=sentence]{
-    font-size: 1.5em;
+/* Upload Box Styling */
+.uploadbox {
+    background: linear-gradient(145deg, rgba(240, 248, 255, 0.95), rgba(230, 240, 250, 0.95));
+    width: 48%;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: slideInRight 1s ease-out 0.7s both;
+    position: relative;
+    overflow: hidden;
 }
 
-.m_title{
-    font-size: 1em;
+@keyframes slideInRight {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
-h4[name=uploadtitle]{
-    font-size: 1.5em;
-    color:#1F85DE;
+.uploadbox::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, 
+        transparent 30%, 
+        rgba(31, 133, 222, 0.05) 50%, 
+        transparent 70%);
+    animation: backgroundShine 8s linear infinite;
+    pointer-events: none;
 }
 
-.uploadbox p{
+@keyframes backgroundShine {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+h4[name=uploadtitle] {
+    font-size: 1.8em;
+    color: #1F85DE;
+    font-family: "Rubik Spray Paint", system-ui;
+    text-shadow: 2px 2px 4px rgba(31, 133, 222, 0.2);
+    animation: titleGlow 2s ease-in-out infinite alternate;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 25px;
+}
+
+@keyframes titleGlow {
+    from {
+        text-shadow: 2px 2px 4px rgba(31, 133, 222, 0.2);
+    }
+    to {
+        text-shadow: 2px 2px 15px rgba(31, 133, 222, 0.4);
+    }
+}
+
+/* Drag and Drop Area */
+.upload-area {
+    background: linear-gradient(145deg, rgba(245, 245, 220, 0.8), rgba(255, 248, 220, 0.8));
+    margin: 0 10px 20px 10px;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    border: 3px dashed rgba(31, 133, 222, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    animation: uploadAreaSlide 1s ease-out 1s both;
+}
+
+@keyframes uploadAreaSlide {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.upload-area:hover {
+    background: linear-gradient(145deg, rgba(31, 133, 222, 0.1), rgba(100, 170, 240, 0.1));
+    border-color: #1F85DE;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(31, 133, 222, 0.2);
+}
+
+.upload-area.dragover {
+    background: linear-gradient(145deg, rgba(31, 133, 222, 0.2), rgba(100, 170, 240, 0.2));
+    border-color: #ff6b9d;
+    transform: scale(1.02);
+    animation: dragPulse 0.6s ease-in-out infinite;
+}
+
+@keyframes dragPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 107, 157, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 15px rgba(255, 107, 157, 0);
+    }
+}
+
+.uploadbox p {
     font-size: 4em;
+    margin: 0;
+    animation: iconBounce 2s ease-in-out infinite;
+    transition: all 0.3s ease;
 }
 
-.uploadbox h6{
+@keyframes iconBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.upload-area:hover p {
+    transform: scale(1.2);
+    filter: drop-shadow(0 5px 10px rgba(31, 133, 222, 0.3));
+}
+
+.uploadbox h6 {
+    font-size: 1.2em;
+    color: #666;
+    margin: 10px 0 20px 0;
+    font-family: "Jua", sans-serif;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover h6 {
+    color: #1F85DE;
+    transform: translateY(-2px);
+}
+
+/* File Input and Buttons */
+.upload-controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: controlsSlide 1s ease-out 1.2s both;
+}
+
+@keyframes controlsSlide {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.uploadbox input[type="file"] {
+    display: none;
+}
+
+.file-label, .uploadbox button {
+    background: linear-gradient(45deg, #1F85DE, #64AAF0);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-family: "Jua", sans-serif;
     font-size: 1em;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(31, 133, 222, 0.2);
+}
+
+.file-label::before, .uploadbox button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transition: all 0.6s ease;
+    transform: translate(-50%, -50%);
+}
+
+.file-label:hover::before, .uploadbox button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.file-label:hover, .uploadbox button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(31, 133, 222, 0.4);
+    background: linear-gradient(45deg, #64AAF0, #ff6b9d);
+}
+
+.file-label:active, .uploadbox button:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+/* Textarea Styling */
+.textarea-container {
+    margin: 20px 15px;
+    animation: textareaSlide 1s ease-out 1.4s both;
+}
+
+@keyframes textareaSlide {
+    from {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.uploadbox textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid rgba(31, 133, 222, 0.2);
+    border-radius: 15px;
+    font-family: "Jua", sans-serif;
+    font-size: 1em;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    resize: vertical;
+    min-height: 120px;
+    box-sizing: border-box;
+}
+
+.uploadbox textarea:focus {
+    outline: none;
+    border-color: #1F85DE;
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(31, 133, 222, 0.2);
+    animation: textareaPulse 0.6s ease-out;
+}
+
+@keyframes textareaPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(31, 133, 222, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(31, 133, 222, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(31, 133, 222, 0);
+    }
+}
+
+.uploadbox textarea::placeholder {
+    color: #999;
+    transition: all 0.3s ease;
+}
+
+.uploadbox textarea:focus::placeholder {
+    color: #1F85DE;
+    transform: translateY(-2px);
+}
+
+/* Upload Button */
+.upload-button {
+    background: linear-gradient(45deg, #ff6b9d, #c44569) !important;
+    margin: 20px auto;
+    display: block;
+    padding: 15px 30px !important;
+    font-size: 1.2em !important;
+    animation: uploadButtonSlide 1s ease-out 1.6s both;
+}
+
+@keyframes uploadButtonSlide {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.upload-button:hover {
+    background: linear-gradient(45deg, #ff8fab, #e74c3c) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .thumbs_box, .uploadbox {
+        width: 100%;
+        margin: 0 0 20px 0;
+    }
+    
+    .contents {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .content img {
+        width: 250px;
+        height: 150px;
+    }
+    
+    .upload-controls {
+        flex-direction: column;
+    }
+}
+
+/* File Upload Animation */
+.file-uploaded {
+    animation: fileSuccess 0.8s ease-out;
+}
+
+@keyframes fileSuccess {
+    0% {
+        background: linear-gradient(45deg, #1F85DE, #64AAF0);
+    }
+    50% {
+        background: linear-gradient(45deg, #00b894, #55a3ff);
+        transform: scale(1.1);
+    }
+    100% {
+        background: linear-gradient(45deg, #1F85DE, #64AAF0);
+    }
 }
